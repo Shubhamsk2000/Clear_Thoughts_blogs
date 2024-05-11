@@ -1,0 +1,87 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: #fff; /* Background color for the navbar */
+  padding: 0px 0; /* Vertical and horizontal padding */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px; /* Maximum width of the navbar */
+  margin: 0 auto; /* Center the navbar horizontally */
+  padding: 0 20px; /* Horizontal padding */
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333; /* Color of the logo or brand name */
+}
+.navbar-logo img {
+  max-height: 80px; /* Set maximum height for the logo image */
+}
+.nav-menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-right: 20px; /* Spacing between each nav item */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333; /* Color of the navigation links */
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ff4d4d; /* Color of the navigation links on hover */
+}
+.hide{
+  display: none;
+}
+
+@media screen and (min-width:766px){
+  .hamburger-menu{
+    display: none;
+  }
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    display: none; /* Hide the navigation links by default on smaller screens */
+  }
+  
+  .nav-menu.show {
+    display: flex; /* Show the navigation links when the hamburger menu is clicked */
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* Adjust the top position as needed */
+    right: 0;
+    background-color: #fff; /* Background color for the dropdown menu */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for the dropdown menu */
+    padding: 10px;
+  }
+
+  .nav-menu.show .nav-item {
+    margin-right: 0; /* Reset margin for each nav item */
+    margin-bottom: 10px; /* Add spacing between each nav item */
+  }
+
+  .nav-menu.show .nav-link {
+    color: #333; /* Color of the navigation links */
+    font-weight: bold; /* Bold font weight for better visibility */
+  }
+
+  .hamburger-menu {
+    display: block; /* Show the hamburger menu icon */
+    cursor: pointer;
+  }
+}

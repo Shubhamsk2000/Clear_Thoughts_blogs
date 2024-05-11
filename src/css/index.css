@@ -1,0 +1,204 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family:"Poppins", sans-serif;
+}
+
+/* ==================login page css stars================= */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 90px);
+  background-color: #f0f0f0; /* Background color for the login page */
+  overflow: hidden;
+}
+
+.login-form {
+  background-color: #fff; /* Background color for the login form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333; /* Text color for headings */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333; /* Text color for labels */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff4d4d; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #cc3333; /* Button background color on hover */
+}
+
+/* LoginPage.css */
+
+.register-option {
+  text-align: center;
+  margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.register-option p {
+  color: #333; /* Text color */
+}
+
+.register-option a {
+  color: #ff4d4d; /* Link color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-option a:hover {
+  color: #cc3333; /* Link color on hover */
+}
+/* ==================login page css ENDS================= */
+
+
+/* ==================Registration page css STARTS================= */
+
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 90px);
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.registration-form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #cc3333;
+}
+
+/* ==================Registration page css ENDS================= */
+
+/* ==============Home page css STARTS================== */
+
+/* Post cards container */
+.post-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Card container */
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  margin: 20px;
+  max-width: 300px;
+}
+
+/* Card image */
+.card-image {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Card content */
+.card-content {
+  padding: 20px;
+}
+
+/* Card title */
+.card-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Writer name */
+.card-writer {
+  font-style: italic;
+  color: #666;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .post-cards-container {
+      justify-content: flex-start;
+  }
+}
+
+/* ==============Home page css ENDS================== */
