@@ -1,0 +1,126 @@
+/* CreatePost.css */
+
+.create-post-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    background-color: #f0f0f0;
+    overflow: hidden;
+    font-size: large;
+    
+}
+
+.create-post-form {
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+        "title content content"
+        "image content content"
+        "writer content content"
+        "submit content content";
+}
+
+.form-group:nth-child(1) {
+    grid-area: title;
+}
+
+.form-group:nth-child(2) {
+    grid-area: image;
+}
+
+.form-group:nth-child(3) {
+    margin-inline-start: 25px;
+    grid-area: content;
+    height: 100%;
+}
+
+.form-group:nth-child(3) textarea {
+    height: 90%;
+}
+
+.form-group:nth-child(4) {
+    grid-area: writer;
+}
+
+.create-post-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: large;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #cc3333;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .create-post-form {
+        padding: 10px;
+        /* Adjust padding */
+    }
+
+    .form-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title "
+            "image "
+            "writer"
+            "content"
+            "submit";
+    }
+
+    .form-group:nth-child(3) {
+        margin-inline-start: 0px;
+    }
+    .form-group:nth-child(3){
+        height: 450px;
+    }
+    /* Adjust font sizes */
+    input[type="text"],
+    input[type="file"],
+    textarea,
+    button {
+        font-size: medium;
+    }
+}

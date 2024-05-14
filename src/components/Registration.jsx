@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import registerAw from '../appwrite/appwriteFun';
 import '../css/index.css'; // Importing CSS file for styling
+import { useNavigate } from 'react-router';
+import { GlobalContext } from '../context/Context';
 
 const Registration = () => {
+    const navigate = useNavigate();
+
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const {isLogin, userData} = useContext(GlobalContext)
+    console.log(isLogin, userData)
     function registerBtn() {
 
-        registerAw(email, password, userName);
+        registerAw(email, password, userName).then(() => navigate('/login'));
         console.log("registered successfuly !!");
-        // Navigate('/login');
+
     }
     return (
         <div>
@@ -24,6 +29,8 @@ const Registration = () => {
                             <input type="text" id="username" name="username" placeholder="Enter your username"
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
+                                required={true}
+
                             />
                         </div>
                         <div className="form-group">
@@ -31,6 +38,8 @@ const Registration = () => {
                             <input type="email" id="email" name="email" placeholder="Enter your email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                required={true}
+
                             />
                         </div>
                         <div className="form-group">
@@ -38,6 +47,8 @@ const Registration = () => {
                             <input type="password" id="password" name="password" placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                required={true}
+
                             />
                         </div>
                         <button type="submit" onClick={registerBtn}>Register</button>

@@ -1,73 +1,28 @@
-/**import React, { useState } from 'react';
-import { account, ID } from './appwrite/appwriteFun';
 
-const App = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-
-  async function login(email, password) {
-    await account.createEmailPasswordSession(email, password);
-    setLoggedInUser(await account.get());
-  }
-
-  return (
-    <div>
-      <p>
-        {loggedInUser ? `Logged in as ${loggedInUser.name} and ${loggedInUser.email}` : 'Not logged in'}
-        {
-          console.log(loggedInUser)
-        }
-      </p>
-
-      <form>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-
-        <button type="button" onClick={() => login(email, password)}>
-          Login
-        </button>
-
-        <button
-          type="button"
-          onClick={async () => {
-            await account.create(ID.unique(), email, password, name);
-            login(email, password);
-          }}
-        >
-          Register
-        </button>
-
-        <button
-          type="button"
-          onClick={async () => {
-            await account.deleteSession('current');
-            setLoggedInUser(null);
-          }}
-        >
-          Logout
-        </button>
-      </form>
-    </div>
-  );
-};
-
-export default App;
-**/
-
-import Login, { Navbar, Registration, Home} from "./components/index";
-
-
-
+import { useContext, useEffect, useState } from "react";
+import { Navbar, Footer, CreatePost } from "./components/index";
+import { Outlet } from "react-router-dom";
+import { getUserAw } from "./appwrite/appwriteFun";
+import { GlobalContext } from "./context/Context";
 export default function App() {
-  return (
+
+  const { setIsLogin, setUserData , isLogin, userData} = useContext(GlobalContext);
+  useEffect(() => {
+    getUserAw().then((data) => {
+      if(data){
+        setUserData(data)
+        setIsLogin(true)
+      }
+    })
+  },[])
+  return (  
     <>
-      <Navbar />
-      <Home/>
-      {/* <Login /> */}
-      {/* <Registration/> */}
+      <Navbar isLoginProp = {isLogin} userDataProp = {userData}/>
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+      {/* <CreatePost/> */}
     </>
   )
 }

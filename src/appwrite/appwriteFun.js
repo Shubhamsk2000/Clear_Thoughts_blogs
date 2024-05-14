@@ -1,5 +1,5 @@
 import projectId, { collectionId, databasesId, bucketId } from '../appwriteId';
-import { Client, Account, ID, Databases } from 'appwrite';
+import { Client, Account, ID, Databases, Storage } from 'appwrite';
 
 const client = new Client();
 
@@ -10,6 +10,7 @@ client
 const account = new Account(client);
 
 const databases = new Databases(client);
+const storage = new Storage(client);
 
 // function for Registering new user
 async function registerAw(email, password, userName) {
@@ -40,10 +41,16 @@ async function getUserAw() {
         console.log(error.message);
     }
 }
-
+async function logOut() {
+    try {
+        return await account.deleteSessions();
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 async function getAllPosts() {
     try {
-       return await databases.listDocuments(
+        return await databases.listDocuments(
             databasesId,
             collectionId
         )
@@ -52,11 +59,57 @@ async function getAllPosts() {
     }
 }
 
+async function createPost(title, slug, content, userId, authorName) {
+    try {
+        return await databases.createDocument(
+            databasesId,
+            collectionId,
+            slug,
+            {
+                title,
+                userId,
+                content,
+                authorName,
+            }
+        )
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+async function uploadFile(File, slug) {
+    try {
+        return await storage.createFile(
+            bucketId,
+            slug,
+            File
+        )
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+async function getFile(slug){
+    try {
+        return await storage.getFileView(
+            bucketId,
+            slug
+        )
+    } catch (error) {
+        console.log(error.message, "error in getFile");
+    }
+}
+
 export default registerAw;
 export {
     loginAw,
     getUserAw,
     getAllPosts,
+    logOut,
+    createPost,
+    uploadFile,
+    getFile,
+
+
 
 }
 

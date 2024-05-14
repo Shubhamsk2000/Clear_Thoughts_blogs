@@ -4,6 +4,7 @@
   background-color: #fff; /* Background color for the navbar */
   padding: 0px 0; /* Vertical and horizontal padding */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+  font-size: 18px;
 }
 
 .navbar-container {
@@ -16,12 +17,16 @@
 }
 
 .navbar-logo {
-  font-size: 24px;
   font-weight: bold;
+
   color: #333; /* Color of the logo or brand name */
 }
-.navbar-logo img {
-  max-height: 80px; /* Set maximum height for the logo image */
+.navbar-logo a{
+  display: flex;
+  padding: 5px;
+}
+.navbar-logo a img {
+  max-height: 60px; /* Set maximum height for the logo image */
 }
 .nav-menu {
   list-style: none;
@@ -29,6 +34,18 @@
   align-items: center;
   margin: 0;
   padding: 0;
+}
+.logoutBtn{
+  cursor: pointer;
+  margin: 4px;
+  padding: 4px;
+  background-color: black;
+  color: white;
+}
+.usernav{
+  cursor: pointer;
+  margin: 4px;
+  padding: 4px;
 }
 
 .nav-item {
@@ -46,6 +63,24 @@
 }
 .hide{
   display: none;
+}
+
+.sign-in {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff4d4d; /* Button background color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.sign-in a{
+  color: #fff; 
+text-decoration: none;
+font-weight: 600;
+}
+.sign-in:hover {
+  background-color: #cc3333; /* Button background color on hover */
 }
 
 @media screen and (min-width:766px){
@@ -85,3 +120,5 @@
     cursor: pointer;
   }
 }
+
+

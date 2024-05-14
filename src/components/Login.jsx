@@ -2,22 +2,26 @@ import { useContext, useState } from 'react';
 import { getUserAw, loginAw } from '../appwrite/appwriteFun';
 import '../css/index.css'; // Importing CSS file for styling
 import { GlobalContext } from '../context/Context';
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { isLogin, setIsLogin, userData, setUserData } = useContext(GlobalContext);
+    console.log(isLogin, userData)
 
-    function loginBtn() {
+    async function loginBtn() {
         loginAw(email, password)
             .then(() => {
                 setIsLogin(true);
                 getUserAw().then(data => {
                     setUserData(data);
+                    navigate("/");
                 });
             })
             .catch((e) => console.log(e.message));
-            console.log("loggin successfull !!!")
+        console.log("loggin successfull !!!")
     }
     return (
         <div className="login-container">
@@ -28,12 +32,14 @@ const LoginPage = () => {
                         <label htmlFor="username">Email Id</label>
                         <input type="text" id="email-id" name="email-id" placeholder="Enter your email" value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required={true}
                         />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Enter your password" value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required={true}
                         />
                     </div>
                     <button type="submit" onClick={loginBtn}>Login</button>

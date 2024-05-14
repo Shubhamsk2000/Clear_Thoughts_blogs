@@ -1,21 +1,36 @@
 import { useContext, useState } from 'react';
 import '../css/Navbar.css'; // Importing CSS file for styling
+import { logOut } from '../appwrite/appwriteFun';
+import { useNavigate } from 'react-router';
 import { GlobalContext } from '../context/Context';
-
-const Navbar = () => {
+const Navbar = ({ isLoginProp = false, userDataProp }) => {
+  const {setIsLogin} = useContext(GlobalContext)
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
 
-  const { isLogin, userData } = useContext(GlobalContext);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  function logOutBtn(){
+    logOut().then(()=>{
+      navigate("/")
+      console.log("logout successefuly")
+      setIsLogin(false);
+    })
+  }
+
+  console.log(isLoginProp, userDataProp, "inside prope")
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
           <a href="/">
-            <img src='./logo.png' alt='logo'></img>
+            <img src='./logo.png' draggable="false" alt='logo'></img>
           </a>
         </div>
         <div className="hamburger-menu" onClick={toggleMenu}>
@@ -35,7 +50,19 @@ const Navbar = () => {
             <a href="/blog" className="nav-link">Blog</a>
           </li>
           {
-            isLogin ? <p className='userOnNav'>{userData.name}</p>:null
+            isLoginProp ? <>
+              <li className="nav-item"><a href="/create-post">Create</a></li>
+              <li className="nav-item" onClick={toggleDropdown}>
+                <p className='usernav'>{userDataProp?.name}</p>
+                {isDropdownOpen && (
+                  <ul>
+                    <li>Account</li>
+                    <li className='logoutBtn' onClick={logOutBtn}>Logout</li>
+                  </ul>
+                )}
+              </li>
+            </> :
+              <li className='sign-in'><a href="/register">Sign In</a></li>
           }
         </ul>
       </div>
