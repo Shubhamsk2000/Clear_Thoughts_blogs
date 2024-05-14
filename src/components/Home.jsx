@@ -44,7 +44,7 @@ function Home() {
             
             posts.map((post, index) => (
                 <div key={index} className="card">
-                    <img src={imageURLs[post.$id] || "./default-image.jpg"} alt="Post" className="card-image" />
+                    <img src={imageURLs[post.$id] || "src/assets/default-image.jpg"} alt="Post" className="card-image" />
                     {
                         // console.log(imageURLs[post.$id], index)
 
