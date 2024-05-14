@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import '../css/CreatePost.css'; // Importing CSS file for styling
 import { GlobalContext } from '../context/Context';
 import { createPost, uploadFile } from '../appwrite/appwriteFun';
+import { ID } from 'appwrite'
 
 const CreatePost = () => {
   const [userId, setUserId] = useState("");
@@ -14,10 +15,11 @@ const CreatePost = () => {
 
   useEffect(() => {
     if (userData) {
+
       setUserId(userData.$id)
       console.log(userData.$id, isLogin, "userId");
     }
-  }, [])
+  }, [userData, isLogin])
 
   function handleCreatePost() {
 
@@ -25,24 +27,25 @@ const CreatePost = () => {
       setauthorName(userData.name);
     }
 
-    createPost(title, slug, content, userId, authorName).then((data) => {
-      console.log(data);
-      if (data) {
-        console.log("Successefully added document in database");
-
-        uploadFile(image, slug).then((data) => {
-          if (data) {
-            console.log("successefully uploaded file to database")
+    createPost(title, slug, content, userId, authorName)
+      .then((data) => {
+        if (data) {
+          console.log("Successfully added document in database");
+          if (image) {
+            return uploadFile(image, slug);
           }
-        }).catch((e) => {
-          console.log(e.message);
-        });
-      }
-    }).catch((error) => {
-      console.log(error.message);
-    });
+        }
+      })
+      .then((data) => {
+        if (data) {
+          console.log("Successfully uploaded file to database");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
 
-    
+
 
 
   }
@@ -76,8 +79,8 @@ const CreatePost = () => {
           <div className="form-group">
             <label htmlFor="image">Upload Image (JPG/PNG)</label>
             <input type="file" id="image" name="image" accept="image/jpeg, image/png"
-            // value={image}
-            onChange={(e)=>setImage(e.target.files[0])} 
+              // value={image}
+              onChange={(e) => setImage(e.target.files[0])}
             />
           </div>
           <div className="form-group">

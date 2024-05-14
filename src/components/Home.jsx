@@ -3,7 +3,7 @@ import { getAllPosts, getFile } from "../appwrite/appwriteFun";
 import "../css/index.css";
 import { GlobalContext } from "../context/Context";
 function Home() {
-    const {isLogin} = useContext(GlobalContext)
+    const { isLogin } = useContext(GlobalContext)
     const [posts, setPosts] = useState([]);
     const [imageURLs, setImageURLs] = useState({});
 
@@ -15,7 +15,7 @@ function Home() {
                         setPosts(post.documents);
                     }
                 })
-              
+
             } catch (error) {
                 console.log("Error fetching data in Home : ", error.message);
             }
@@ -24,25 +24,31 @@ function Home() {
     }, [])
 
     useEffect(() => {
-      async function loadImages() {
-        const newImageURLs = {};
-        for (const post of posts) {
-          const data = await getFile(post.$id);
-          newImageURLs[post.$id] = data.href;
+        async function loadImages() {
+            const newImageURLs = {};    
+            for (const post of posts) {
+                const data = await getFile(post.$id);
+                console.log(data, "href")
+                newImageURLs[post.$id] = data.href;
+            }
+            setImageURLs(newImageURLs);
         }
-        setImageURLs(newImageURLs);
-      }
-      loadImages();
+        loadImages();
     }, [posts]);
-  
-    // console.log(posts[0].$id)
-    
+
+
     return (
         <div className="post-cards-container">
             {isLogin}
-            {posts.map((post, index) => (
+            {
+            
+            posts.map((post, index) => (
                 <div key={index} className="card">
-                    <img src={ imageURLs[post.$id] || "./default-image.jpg"} alt="Post" className="card-image" />
+                    <img src={imageURLs[post.$id] || "./default-image.jpg"} alt="Post" className="card-image" />
+                    {
+                        // console.log(imageURLs[post.$id], index)
+
+                    }
                     <div className="card-content">
                         <h2 className="card-title">{post.title}</h2>
                         <p className="card-writer">Written by: {post.authorName}</p>
