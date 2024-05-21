@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useState } from "react";
-import { Navbar, Footer, CreatePost } from "./components/index";
+import { Navbar, Footer,  } from "./components/index";
 import { Outlet } from "react-router-dom";
 import { getUserAw } from "./appwrite/appwriteFun";
 import { GlobalContext } from "./context/Context";
@@ -17,7 +17,7 @@ export default function App() {
   },[])
   return (  
     <>
-      <Navbar isLoginProp = {isLogin} userDataProp = {userData}/>
+      <Navbar/>
       <main>
         <Outlet />
       </main>

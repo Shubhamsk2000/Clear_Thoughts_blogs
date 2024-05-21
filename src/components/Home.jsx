@@ -22,16 +22,18 @@ function Home() {
         }
         fetchPosts();
     }, [])
-
+console.log(posts)
     useEffect(() => {
         async function loadImages() {
             const newImageURLs = {};    
             for (const post of posts) {
-                const data = await getFile(post.$id);
-                console.log(data, "href")
-                newImageURLs[post.$id] = data.href;
+                console.log(post    )
+                if (post.$id) {
+                    const data = await getFile(post.$id);
+                    newImageURLs[post.$id] = data.href;
+                }
             }
-            setImageURLs(newImageURLs);
+            setImageURLs(newImageURLs); 
         }
         loadImages();
     }, [posts]);
@@ -46,7 +48,6 @@ function Home() {
                 <div key={index} className="card">
                     <img src={imageURLs[post.$id] || "src/assets/default-image.jpg"} alt="Post" className="card-image" />
                     {
-                        // console.log(imageURLs[post.$id], index)
 
                     }
                     <div className="card-content">

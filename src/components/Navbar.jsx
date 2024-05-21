@@ -1,12 +1,16 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import '../css/Navbar.css'; // Importing CSS file for styling
 import { logOut } from '../appwrite/appwriteFun';
 import { useNavigate } from 'react-router';
 import { GlobalContext } from '../context/Context';
-const Navbar = ({ isLoginProp = false, userDataProp }) => {
-  const {setIsLogin} = useContext(GlobalContext)
+const Navbar = () => {
+  const {setIsLogin, userData, isLogin} = useContext(GlobalContext)
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    console.log(isLogin, "component loaded");
+  }, [isLogin]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -24,7 +28,6 @@ const Navbar = ({ isLoginProp = false, userDataProp }) => {
     })
   }
 
-  console.log(isLoginProp, userDataProp, "inside prope")
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -50,10 +53,10 @@ const Navbar = ({ isLoginProp = false, userDataProp }) => {
             <a href="/blog" className="nav-link">Blog</a>
           </li>
           {
-            isLoginProp ? <>
+            isLogin ? <>
               <li className="nav-item"><a href="/create-post">Create</a></li>
               <li className="nav-item" onClick={toggleDropdown}>
-                <p className='usernav'>{userDataProp?.name}</p>
+                <p className='usernav'>{userData?.name}</p>
                 {isDropdownOpen && (
                   <ul>
                     <li>Account</li>
