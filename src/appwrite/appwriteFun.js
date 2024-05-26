@@ -88,15 +88,38 @@ async function uploadFile(File, slug) {
         console.log(error.message);
     }
 }
+
 async function getFile(slug){
     try {
-        return await storage.getFileView(
+        return await storage.getFile(
             bucketId,
             slug
         )
     } catch (error) {
         console.log(error.message, "error in getFile");
     }
+}
+async function getFilePreview(slug){
+    try {
+        return await storage.getFilePreview(
+            bucketId,
+            slug
+        )
+    } catch (error) {
+        console.log(error.message, "error in getFile");
+    }
+}
+
+
+async function getFileList(){
+    try {
+        return await storage.listFiles(
+            bucketId
+        )
+    } catch (error) {
+        console.log(error.message, "error in getFile");
+    }
+
 }
 
 export default registerAw;
@@ -108,6 +131,8 @@ export {
     createPost,
     uploadFile,
     getFile,
+    getFilePreview,
+    getFileList
 
 
 

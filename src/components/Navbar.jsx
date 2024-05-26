@@ -3,11 +3,11 @@ import '../css/Navbar.css'; // Importing CSS file for styling
 import { logOut } from '../appwrite/appwriteFun';
 import { useNavigate } from 'react-router';
 import { GlobalContext } from '../context/Context';
+import Logo from '../assets/logo.png'
 const Navbar = () => {
   const {setIsLogin, userData, isLogin} = useContext(GlobalContext)
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
-
   useEffect(() => {
     console.log(isLogin, "component loaded");
   }, [isLogin]);
@@ -33,7 +33,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-logo">
           <a href="/">
-            <img src='src/assets/logo.png' draggable="false" alt='logo'></img>
+            <img src={Logo} draggable="false" alt='logo'></img>
           </a>
         </div>
         <div className="hamburger-menu" onClick={toggleMenu}>

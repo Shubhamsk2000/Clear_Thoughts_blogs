@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import GlobalState from './context/Context.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import LoginPage, { CreatePost, Home, Registration } from "./components/index.js"
+import LoginPage, { CreatePost, Home, Registration, Post } from "./components/index.js"
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/create-post",
         element: <CreatePost />
+      },
+      {
+        path: "/post/:id",
+        element: <Post />
       }
     ]
   }

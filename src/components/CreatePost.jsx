@@ -2,7 +2,6 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import '../css/CreatePost.css'; // Importing CSS file for styling
 import { GlobalContext } from '../context/Context';
 import { createPost, uploadFile } from '../appwrite/appwriteFun';
-import { ID } from 'appwrite'
 
 const CreatePost = () => {
   const [userId, setUserId] = useState("");
@@ -36,18 +35,14 @@ const CreatePost = () => {
           }
         }
       })
-      .then((data) => {
-        if (data) {
+      .then((uploadFiledata) => {
+        if (uploadFiledata) {
           console.log("Successfully uploaded file to database");
         }
       })
       .catch((error) => {
         console.log(error.message);
       });
-
-
-
-
   }
   const handleSlug = useCallback((value) => {
     const val = value

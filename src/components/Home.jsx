@@ -1,63 +1,56 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts, getFile } from "../appwrite/appwriteFun";
+import { getAllPosts, getFileList, getFilePreview } from "../appwrite/appwriteFun";
 import "../css/index.css";
 import { GlobalContext } from "../context/Context";
+import demoImage from '../assets/2.jpg';
+
 function Home() {
-    const { isLogin } = useContext(GlobalContext)
+    const { isLogin } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
-    const [imageURLs, setImageURLs] = useState({});
+    const [imageUrls, setImageUrls] = useState({});
 
     useEffect(() => {
         async function fetchPosts() {
             try {
-                getAllPosts().then((post) => {
-                    if (post) {
-                        setPosts(post.documents);
-                    }
-                })
+                const postResult = await getAllPosts();
+                if (postResult) {
+                    const postsData = postResult.documents;
+                    setPosts(postsData);
 
+                    // Fetch image URLs for all posts
+                    const imagesU = {};
+                    const res = await getFileList()
+                    for(let i = 0; i < res.files.length; i++){
+                        const url = await getFilePreview(res.files[i].$id);
+                        imagesU[res.files[i].$id] = url.href
+                    }
+                    setImageUrls(imagesU);
+                }
             } catch (error) {
-                console.log("Error fetching data in Home : ", error.message);
+                console.log("Error fetching data in Home:", error.message);
             }
         }
         fetchPosts();
-    }, [])
-console.log(posts)
-    useEffect(() => {
-        async function loadImages() {
-            const newImageURLs = {};    
-            for (const post of posts) {
-                console.log(post    )
-                if (post.$id) {
-                    const data = await getFile(post.$id);
-                    newImageURLs[post.$id] = data.href;
-                }
-            }
-            setImageURLs(newImageURLs); 
-        }
-        loadImages();
-    }, [posts]);
-
+    }, []);
 
     return (
         <div className="post-cards-container">
             {isLogin}
-            {
-            
-            posts.map((post, index) => (
-                <div key={index} className="card">
-                    <img src={imageURLs[post.$id] || "src/assets/default-image.jpg"} alt="Post" className="card-image" />
-                    {
-
-                    }
+            {posts.map((post, index) => (
+                <a href={`post/${post.$id}`} key={index}>
+                      <div className="card">
+                    <img className="demo" src={imageUrls[post.$id] || demoImage} alt="Post image" />
                     <div className="card-content">
                         <h2 className="card-title">{post.title}</h2>
                         <p className="card-writer">Written by: {post.authorName}</p>
                     </div>
                 </div>
+
+                </a>
+              
             ))}
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;
