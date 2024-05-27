@@ -7,6 +7,7 @@ export default function GlobalState({ children }) {
 
     const [isLogin, setIsLogin] = useState(false);
     const [userData, setUserData] = useState({});
+    const [imageURL, setImageURL] = useState({});
 
     return (
         <GlobalContext.Provider value={{
@@ -14,6 +15,8 @@ export default function GlobalState({ children }) {
             setIsLogin,
             userData,
             setUserData,
+            imageURL,
+            setImageURL
         }}>
             {children}
         </GlobalContext.Provider>

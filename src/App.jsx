@@ -12,6 +12,7 @@ export default function App() {
       if(data){
         setUserData(data)
         setIsLogin(true)
+        console.log("app.jsx : update context");
       }
     })
   },[])

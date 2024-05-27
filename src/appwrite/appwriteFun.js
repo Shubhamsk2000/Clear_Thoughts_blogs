@@ -58,6 +58,17 @@ async function getAllPosts() {
         console.log(error.message);
     }
 }
+async function getDocument(slug) {
+    try {
+        return await databases.getDocument(
+            databasesId,
+            collectionId,
+            slug,
+        )
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 async function createPost(title, slug, content, userId, authorName) {
     try {
@@ -127,6 +138,7 @@ export {
     loginAw,
     getUserAw,
     getAllPosts,
+    getDocument,
     logOut,
     createPost,
     uploadFile,

@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router';
 import { GlobalContext } from '../context/Context';
 import Logo from '../assets/logo.png'
 const Navbar = () => {
-  const {setIsLogin, userData, isLogin} = useContext(GlobalContext)
+  const {setIsLogin, userData, isLogin,} = useContext(GlobalContext)
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
+
   useEffect(() => {
     console.log(isLogin, "component loaded");
   }, [isLogin]);

@@ -5,10 +5,9 @@ import { GlobalContext } from "../context/Context";
 import demoImage from '../assets/2.jpg';
 
 function Home() {
-    const { isLogin } = useContext(GlobalContext);
+    const {imageURL, setImageURL, } = useContext(GlobalContext);
     const [posts, setPosts] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
-
+    // const [imageurl, setImageurl] = useState({})
     useEffect(() => {
         async function fetchPosts() {
             try {
@@ -24,7 +23,7 @@ function Home() {
                         const url = await getFilePreview(res.files[i].$id);
                         imagesU[res.files[i].$id] = url.href
                     }
-                    setImageUrls(imagesU);
+                    setImageURL(imagesU);
                 }
             } catch (error) {
                 console.log("Error fetching data in Home:", error.message);
@@ -32,14 +31,13 @@ function Home() {
         }
         fetchPosts();
     }, []);
-
+    
     return (
         <div className="post-cards-container">
-            {isLogin}
             {posts.map((post, index) => (
                 <a href={`post/${post.$id}`} key={index}>
                       <div className="card">
-                    <img className="demo" src={imageUrls[post.$id] || demoImage} alt="Post image" />
+                    <img className="demo" src={imageURL[post.$id] || demoImage} alt="Post image" />
                     <div className="card-content">
                         <h2 className="card-title">{post.title}</h2>
                         <p className="card-writer">Written by: {post.authorName}</p>
