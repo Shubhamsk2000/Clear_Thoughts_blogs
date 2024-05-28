@@ -6,7 +6,7 @@ import { getUserAw } from "./appwrite/appwriteFun";
 import { GlobalContext } from "./context/Context";
 export default function App() {
 
-  const { setIsLogin, setUserData , isLogin, userData} = useContext(GlobalContext);
+  const { setIsLogin, setUserData } = useContext(GlobalContext);
   useEffect(() => {
     getUserAw().then((data) => {
       if(data){

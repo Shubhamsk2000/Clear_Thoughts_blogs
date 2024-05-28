@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getAllPosts, getFileList, getFilePreview } from "../appwrite/appwriteFun";
+import { getAllPosts, getFileList } from "../appwrite/appwriteFun";
 import "../css/index.css";
 import { GlobalContext } from "../context/Context";
 import demoImage from '../assets/2.jpg';
@@ -20,8 +20,14 @@ function Home() {
                     const imagesU = {};
                     const res = await getFileList()
                     for(let i = 0; i < res.files.length; i++){
-                        const url = await getFilePreview(res.files[i].$id);
-                        imagesU[res.files[i].$id] = url.href
+                        const presentImages = res.files[i].$id;
+
+                        // here insted of sending request to server for each file preview i constructed a url based on its id and then made a key value pare in imagesU object manualy
+
+                        // const url = await getFilePreview(res.files[i].$id);
+                        // imagesU[res.files[i].$id] = url.href
+                        
+                        imagesU[presentImages] = "https://cloud.appwrite.io/v1/storage/buckets/663fb5b6000b13a859d4/files/"+ presentImages +"/preview?project=663fab57001d02e6b520"
                     }
                     setImageURL(imagesU);
                 }
@@ -37,7 +43,7 @@ function Home() {
             {posts.map((post, index) => (
                 <a href={`post/${post.$id}`} key={index}>
                       <div className="card">
-                    <img className="demo" src={imageURL[post.$id] || demoImage} alt="Post image" />
+                    <img className="demo" src={imageURL[post.$id] ? imageURL[post.$id] : demoImage} alt="Post image" />
                     <div className="card-content">
                         <h2 className="card-title">{post.title}</h2>
                         <p className="card-writer">Written by: {post.authorName}</p>
@@ -45,7 +51,6 @@ function Home() {
                 </div>
 
                 </a>
-              
             ))}
         </div>
     );

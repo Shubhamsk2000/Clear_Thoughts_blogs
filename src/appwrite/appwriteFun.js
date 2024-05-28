@@ -14,12 +14,18 @@ const storage = new Storage(client);
 
 // function for Registering new user
 async function registerAw(email, password, userName) {
-    await account.create(
-        ID.unique(),
-        email,
-        password,
-        userName,
-    )
+    try {
+        await account.create(
+            ID.unique(),
+            email,
+            password,
+            userName,
+        )
+
+    } catch (error) {
+        
+        console.log(error.message);
+    }
 }
 // function for login user
 async function loginAw(email, password) {
@@ -28,6 +34,7 @@ async function loginAw(email, password) {
             email,
             password,
         )
+
     } catch (error) {
         console.log(error.message);
     }
@@ -36,6 +43,8 @@ async function loginAw(email, password) {
 
 async function getUserAw() {
     try {
+    console.log("Server request successful for get user");
+
         return await account.get();
     } catch (error) {
         console.log(error.message);
