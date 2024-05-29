@@ -4,8 +4,9 @@ import { logOut } from '../appwrite/appwriteFun';
 import { useNavigate } from 'react-router';
 import { GlobalContext } from '../context/Context';
 import Logo from '../assets/logo.png'
+import ProfilePic from '../assets/profile-pic-modified.png'
 const Navbar = () => {
-  const {setIsLogin, userData, isLogin,} = useContext(GlobalContext)
+  const { setIsLogin, userData, isLogin, } = useContext(GlobalContext)
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
 
@@ -21,8 +22,8 @@ const Navbar = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  function logOutBtn(){
-    logOut().then(()=>{
+  function logOutBtn() {
+    logOut().then(() => {
       navigate("/")
       console.log("logout successefuly")
       setIsLogin(false);
@@ -50,21 +51,26 @@ const Navbar = () => {
           <li className="nav-item">
             <a href="/about" className="nav-link">About</a>
           </li>
-          <li className="nav-item">
-            <a href="/blog" className="nav-link">Blog</a>
-          </li>
+
           {
             isLogin ? <>
-              <li className="nav-item"><a href="/create-post">Create</a></li>
-              <li className="nav-item" onClick={toggleDropdown}>
-                <p className='usernav'>{userData?.name}</p>
-                {isDropdownOpen && (
-                  <ul>
-                    <li>Account</li>
-                    <li className='logoutBtn' onClick={logOutBtn}>Logout</li>
-                  </ul>
-                )}
-              </li>
+              <div className='user-navbar-info-div'>
+
+                <li className="nav-item"><a href="/create-post">Create</a></li>
+                <li className="nav-item user-navbar-info" onClick={toggleDropdown}>
+                  <p className='usernav'>{userData?.name}</p>
+                  <img src={ProfilePic} alt="Pro" />
+                  {isDropdownOpen && (
+                    <ul className='navbar-user-dropdown'>
+                      <li>Account</li>
+                      <li className="nav-item">
+                        <a href="/my-blogs" >My Blogs</a>
+                      </li>
+                      <li className='logoutBtn' onClick={logOutBtn}><p>Logout</p></li>
+                    </ul>
+                  )}
+                </li>
+              </div>
             </> :
               <li className='sign-in'><a href="/register">Sign In</a></li>
           }
