@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import GlobalState from './context/Context.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoginPage, { CreatePost, Home, Registration, Post, MyBlogs } from "./components/index.js"
 
 const router = createBrowserRouter([
@@ -40,8 +40,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <BrowserRouter>
     <GlobalState>
-      <RouterProvider router={router} />
+      <App/>
     </GlobalState>
+    </BrowserRouter>
+
   </React.StrictMode>,
 )
